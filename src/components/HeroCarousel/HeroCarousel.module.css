@@ -1,0 +1,459 @@
+/* HeroCarousel.module.css — CSS Nesting + Diseño Premium */
+
+.wrapper {
+    position: relative;
+    margin: 24px 0;
+    background: transparent;
+    z-index: 1;
+}
+
+.embla {
+    overflow: hidden;
+    border-radius: 22px;
+    background: transparent;
+}
+
+.emblaContainer {
+    display: flex;
+    background: transparent;
+}
+
+.emblaSlide {
+    flex: 0 0 100%;
+    min-width: 0;
+    background: transparent;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding: 0 4px;
+    height: 620px;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: transparent;
+}
+
+.smallCards {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    height: 100%;
+    background: transparent;
+}
+
+/* ── Tarjeta ── */
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    background-color: transparent;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(0) translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition:
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+
+    & img {
+        position: absolute;
+        inset: -20px 0;
+        width: 100%;
+        height: calc(100% + 40px);
+        object-fit: cover;
+        z-index: 1;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: scale(1.08) translateY(calc(var(--scroll-y, 0px) * 0.05)) translateZ(0);
+        will-change: transform;
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    & .overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(
+            to top,
+            rgba(10, 15, 30, 0.88) 0%,
+            rgba(10, 15, 30, 0.3) 35%,
+            transparent 70%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 28px;
+        transition: background 0.4s ease;
+    }
+
+    & .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        padding: 6px 12px;
+        border-radius: 8px;
+        text-transform: uppercase;
+        align-self: flex-start;
+        background: rgba(10, 15, 30, 0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+            box-shadow: 0 0 6px currentColor;
+            animation: tag-pulse 2s infinite ease-in-out;
+        }
+    }
+
+    & .cardContent {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        transform: translateY(0);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        width: 100%;
+    }
+
+    & .shopNow {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: 0.12em;
+        padding: 0 22px;
+        border-radius: 30px;
+        background: #ffffff;
+        border: 1px solid #ffffff;
+        width: fit-content;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+        max-height: 0;
+        margin-top: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transition:
+            max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            margin-top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            background 0.3s ease,
+            border-color 0.3s ease,
+            color 0.3s ease,
+            box-shadow 0.3s ease,
+            transform 0.3s ease;
+
+        &:hover {
+            background: #10b981;
+            border-color: #10b981;
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+            transform: translateY(-2px);
+
+            & .arrowIcon {
+                transform: translateX(4px);
+            }
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 28px 56px rgba(0, 0, 0, 0.28);
+
+        & img {
+            transform: scale(1.16) translateY(calc(var(--scroll-y, 0px) * 0.05)) translateZ(0);
+        }
+
+        & .overlay {
+            background: linear-gradient(
+                to top,
+                rgba(10, 15, 30, 0.92) 0%,
+                rgba(10, 15, 30, 0.42) 35%,
+                transparent 70%
+            );
+        }
+
+        & .tag {
+            transform: translateY(-2px);
+            background: rgba(10, 15, 30, 0.82);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        & .cardContent {
+            transform: translateY(-4px);
+        }
+
+        & .shopNow {
+            max-height: 44px;
+            margin-top: 12px;
+            padding: 10px 22px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+.cardLarge {
+    height: 100%;
+}
+
+.cardSmall {
+    flex: 1;
+    height: auto;
+    min-height: 0;
+}
+
+/* ── Variantes de etiqueta ── */
+.tagPrimary {
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.tagAccent {
+    color: #fb7185;
+    border: 1px solid rgba(251, 113, 133, 0.35);
+}
+
+.tagMuted {
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+/* ── Texto ── */
+.cardTitle {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-sans);
+}
+
+.cardSmall .cardTitle {
+    font-size: 1.45rem;
+}
+
+.cardDesc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 4px 0 8px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cardSmall .cardDesc {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 6px;
+}
+
+.arrowIcon {
+    font-size: 0.85rem;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── Progreso ── */
+.progressContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    z-index: 10;
+}
+
+.progressSegment {
+    width: 24px;
+    height: 3px;
+    background: var(--border-light);
+    border-radius: 2px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+        background: var(--text-muted);
+        width: 32px;
+    }
+}
+
+.segmentActive {
+    width: 44px;
+    background: var(--border-light);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0%;
+        background: var(--accent-primary);
+        animation: slideProgress 7s linear forwards;
+    }
+}
+
+@keyframes slideProgress {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* ── Carga ── */
+.loadingContainer {
+    height: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(16, 185, 129, 0.12);
+    border-top: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: -7px;
+        border-radius: 50%;
+        border: 1px solid rgba(16, 185, 129, 0.15);
+        animation: loading-pulse 2s ease-in-out infinite;
+    }
+}
+
+.loadingText {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-family: var(--font-tech), monospace;
+    animation: loading-pulse 1.5s infinite ease-in-out;
+}
+
+/* ── Keyframes ── */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes tag-pulse {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(0.85);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+        box-shadow: 0 0 10px currentColor;
+    }
+}
+
+@keyframes loading-pulse {
+    0%,
+    100% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ── Responsivo ── */
+@media (max-width: 992px) {
+    .grid {
+        height: 520px;
+    }
+    .loadingContainer {
+        height: 520px;
+    }
+    .cardTitle {
+        font-size: 1.8rem;
+    }
+    .cardSmall .cardTitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 14px;
+    }
+
+    .cardLarge {
+        height: 340px;
+    }
+    .overlay {
+        padding: 22px;
+    }
+
+    .smallCards {
+        flex-direction: row;
+        height: 210px;
+        gap: 14px;
+    }
+
+    .cardSmall {
+        flex: 1;
+        height: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .cardLarge {
+        height: 270px;
+    }
+
+    .smallCards {
+        flex-direction: column;
+        height: auto;
+        gap: 14px;
+    }
+
+    .cardSmall {
+        height: 175px;
+        flex: none;
+    }
+}

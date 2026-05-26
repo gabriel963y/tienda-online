@@ -1,0 +1,314 @@
+/* PromoBanner.css — CSS Nesting + Diseño Premium */
+
+.promo-banner-card {
+    background-color: #0a0f1e;
+    background-image:
+        radial-gradient(ellipse 60% 80% at 10% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 90% 70%, rgba(14, 165, 233, 0.1) 0%, transparent 60%),
+        linear-gradient(135deg, #0a0f1e 0%, #111827 100%);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+    padding: 3.5rem 3rem;
+    transition:
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+        transform: translateY(-3px);
+        border-color: rgba(16, 185, 129, 0.2);
+        box-shadow:
+            0 40px 100px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(16, 185, 129, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+        & .promo-glow {
+            opacity: 0.22;
+        }
+
+        & .watermark-text {
+            transform: translateY(-50%) scale(1.06);
+            -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.06);
+        }
+
+        & .promo-tag {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+    }
+}
+
+.promo-glow {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.6s ease;
+
+    &.promo-glow-primary {
+        background: var(--accent-primary, #10b981);
+        top: -140px;
+        left: -120px;
+        animation: float-glow-slow 14s infinite alternate ease-in-out;
+    }
+
+    &.promo-glow-secondary {
+        background: var(--accent-secondary, #0ea5e9);
+        bottom: -120px;
+        right: -80px;
+        animation: float-glow 9s infinite alternate ease-in-out;
+    }
+}
+
+@keyframes float-glow {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(-50px, -35px) scale(1.3);
+    }
+}
+
+@keyframes float-glow-slow {
+    0% {
+        transform: translate(0, 0) scale(1.2);
+    }
+    100% {
+        transform: translate(40px, 50px) scale(0.85);
+    }
+}
+
+.watermark-text {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    font-size: 10rem;
+    font-family: var(--font-tech), sans-serif;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.03);
+    text-stroke: 1.5px rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    transition:
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        -webkit-text-stroke 0.4s ease;
+}
+
+.promo-tag {
+    font-family: var(--font-tech), sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--accent-primary, #10b981);
+    text-transform: uppercase;
+    background: rgba(16, 185, 129, 0.08);
+    padding: 5px 16px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    box-shadow: 0 2px 12px rgba(16, 185, 129, 0.06);
+    transition: all 0.35s ease;
+
+    &::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent-primary, #10b981);
+        box-shadow: 0 0 6px var(--accent-primary, #10b981);
+        animation: pulse-dot 2s ease-in-out infinite;
+    }
+}
+
+@keyframes pulse-dot {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(0.85);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+        box-shadow: 0 0 10px var(--accent-primary, #10b981);
+    }
+}
+
+.promo-title {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #ffffff 50%, rgba(255, 255, 255, 0.6) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.promo-desc {
+    font-family: var(--font-sans), sans-serif;
+    font-size: 0.98rem;
+    color: rgba(148, 163, 184, 0.9);
+    margin-bottom: 0;
+    line-height: 1.65;
+    max-width: 520px;
+}
+
+.promo-input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 440px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    padding: 6px 6px 6px 22px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:focus-within {
+        border-color: rgba(16, 185, 129, 0.45);
+        background: rgba(255, 255, 255, 0.07);
+        box-shadow:
+            0 8px 32px rgba(16, 185, 129, 0.12),
+            0 0 0 3px rgba(16, 185, 129, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+}
+
+.promo-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-weight: 500;
+    font-family: var(--font-sans), sans-serif;
+
+    &::placeholder {
+        color: rgba(100, 116, 139, 0.8);
+    }
+}
+
+.promo-submit-btn {
+    background: linear-gradient(135deg, var(--accent-primary, #10b981) 0%, #059669 100%);
+    color: #ffffff;
+    border: none;
+    outline: none;
+    font-family: var(--font-tech), sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(16, 185, 129, 0.2);
+    }
+}
+
+/* ── Responsivo ── */
+@media (max-width: 992px) {
+    .promo-banner-card {
+        padding: 3rem 2.5rem;
+
+        & .promo-title {
+            font-size: 2.1rem;
+        }
+        & .watermark-text {
+            font-size: 7.5rem;
+            right: 3%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-banner-card {
+        padding: 2.5rem 2rem;
+
+        & .promo-title {
+            font-size: 1.85rem;
+        }
+        & .promo-desc {
+            font-size: 0.92rem;
+            margin-bottom: 8px;
+        }
+    }
+
+    .promo-input-group {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-banner-card {
+        padding: 2rem 1.4rem;
+        border-radius: 20px;
+    }
+
+    .promo-input-group {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        backdrop-filter: none;
+        box-shadow: none;
+        padding: 0;
+        gap: 12px;
+        border-radius: 0;
+
+        & .promo-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            padding: 13px 20px;
+
+            &:focus {
+                border-color: rgba(16, 185, 129, 0.4);
+            }
+        }
+
+        & .promo-submit-btn {
+            width: 100%;
+            padding: 13px;
+            border-radius: 100px;
+        }
+    }
+}
