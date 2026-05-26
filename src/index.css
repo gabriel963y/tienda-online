@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --font-tech: 'Orbitron', sans-serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --accent-primary: #10b981;
+    --accent-secondary: #0ea5e9;
+    --bg-light: #ffffff;
+    --bg-subtle: #f8fafc;
+    --border-light: rgba(0, 0, 0, 0.06);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --dropdown-bg: #ffffff;
+    --dropdown-border: rgba(0, 0, 0, 0.08);
+    --dropdown-item-hover-bg: #f1f5f9;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: var(--font-sans), serif;
+    background-color: var(--bg-subtle);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.page-top-spacer {
+    height: 20px;
+}
