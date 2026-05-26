@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaInstagram, FaYoutube, FaPinterestP } from 'react-icons/fa';
@@ -11,7 +10,7 @@ const Footer = () => {
     };
 
     return (
-        <footer className="bg-white border-top border-light py-5 mt-5">
+        <footer className="footer-wrapper border-top py-5 mt-5">
             <Container>
                 <Row className="gy-4 text-center text-md-start">
                     <Col
@@ -61,26 +60,10 @@ const Footer = () => {
                                     href={item.url}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="rounded-circle d-flex align-items-center justify-content-center border"
+                                    className="rounded-circle d-flex align-items-center justify-content-center border footer-social-link"
                                     style={{
                                         width: '32px',
                                         height: '32px',
-                                        backgroundColor: '#f8fafc',
-                                        borderColor: 'rgba(0,0,0,0.06)',
-                                        color: '#64748b',
-                                        transition: 'all 0.2s ease',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor =
-                                            'rgba(16, 185, 129, 0.08)';
-                                        e.currentTarget.style.color = '#10b981';
-                                        e.currentTarget.style.borderColor =
-                                            'rgba(16, 185, 129, 0.2)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = '#f8fafc';
-                                        e.currentTarget.style.color = '#64748b';
-                                        e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
                                     }}
                                 >
                                     {item.icon}
@@ -91,7 +74,7 @@ const Footer = () => {
 
                     <Col xs={12} md={3} lg={2}>
                         <h6
-                            className="fw-bold text-uppercase mb-3 text-dark"
+                            className="fw-bold text-uppercase mb-3 footer-title"
                             style={{ fontSize: '0.8rem', letterSpacing: '1px' }}
                         >
                             Navegación
@@ -110,7 +93,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    to="/tecnologia"
+                                    to="/productos"
                                     className="text-muted text-decoration-none link-success"
                                 >
                                     Productos
@@ -118,7 +101,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    to="/hogar"
+                                    to="/blog"
                                     className="text-muted text-decoration-none link-success"
                                 >
                                     Blog
@@ -129,7 +112,7 @@ const Footer = () => {
 
                     <Col xs={12} md={3} lg={2}>
                         <h6
-                            className="fw-bold text-uppercase mb-3 text-dark"
+                            className="fw-bold text-uppercase mb-3 footer-title"
                             style={{ fontSize: '0.8rem', letterSpacing: '1px' }}
                         >
                             Soporte
@@ -174,7 +157,7 @@ const Footer = () => {
                     </Col>
                     <Col xs={12} md={6} lg={4}>
                         <h6
-                            className="fw-bold text-uppercase mb-3 text-dark"
+                            className="fw-bold text-uppercase mb-3 footer-title"
                             style={{ fontSize: '0.8rem', letterSpacing: '1px' }}
                         >
                             Suscribíte a nuestra Newsletter
@@ -194,7 +177,7 @@ const Footer = () => {
                                 type="email"
                                 placeholder="Tu correo electrónico"
                                 required
-                                className="bg-light border-0 px-3 py-2"
+                                className="footer-newsletter-input px-3 py-2"
                                 style={{ fontSize: '0.9rem', borderRadius: '8px' }}
                             />
                             <Button
@@ -214,7 +197,7 @@ const Footer = () => {
                     </Col>
                 </Row>
 
-                <hr className="my-4" style={{ borderColor: 'rgba(0,0,0,0.06)' }} />
+                <hr className="my-4" style={{ borderColor: 'var(--border-light)', opacity: 1 }} />
 
                 <Row className="gy-2 text-center text-md-start align-items-center">
                     <Col xs={12} md={6}>

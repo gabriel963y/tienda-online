@@ -13,6 +13,57 @@
     --dropdown-bg: #ffffff;
     --dropdown-border: rgba(0, 0, 0, 0.08);
     --dropdown-item-hover-bg: #f1f5f9;
+    --navbar-bg: rgba(255, 255, 255, 0.85);
+    --navbar-mobile-bg: rgba(255, 255, 255, 0.98);
+    --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    --card-shadow-hover: 0 20px 48px rgba(15, 23, 42, 0.08);
+    --login-card-bg: rgba(255, 255, 255, 0.82);
+    --login-glow-opacity-primary: 0.16;
+    --login-glow-opacity-secondary: 0.14;
+    --login-input-bg: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme='dark'] {
+    --bg-light: #111827;
+    --bg-subtle: #0b0f19;
+    --border-light: rgba(255, 255, 255, 0.07);
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --dropdown-bg: #1f2937;
+    --dropdown-border: rgba(255, 255, 255, 0.1);
+    --dropdown-item-hover-bg: #374151;
+    --navbar-bg: rgba(11, 15, 25, 0.85);
+    --navbar-mobile-bg: rgba(11, 15, 25, 0.98);
+    --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+    --card-shadow-hover: 0 20px 48px rgba(16, 185, 129, 0.1);
+    --login-card-bg: rgba(17, 24, 39, 0.82);
+    --login-glow-opacity-primary: 0.28;
+    --login-glow-opacity-secondary: 0.24;
+    --login-input-bg: rgba(0, 0, 0, 0.25);
+
+    & h1,
+    & h2,
+    & h3,
+    & h4,
+    & h5,
+    & h6,
+    & .h1,
+    & .h2,
+    & .h3,
+    & .h4,
+    & .h5,
+    & .h6 {
+        color: var(--text-main) !important;
+    }
+    & label,
+    & .form-label,
+    & .form-check-label {
+        color: var(--text-muted) !important;
+    }
+    & .card {
+        background-color: var(--bg-light);
+        color: var(--text-main);
+    }
 }
 
 html,
@@ -26,8 +77,111 @@ body {
     color: var(--text-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition:
+        background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .page-top-spacer {
     height: 20px;
+}
+
+
+[data-theme='dark'] {
+    & .text-muted {
+        color: var(--text-muted) !important;
+    }
+    & hr {
+        border-color: var(--border-light) !important;
+        opacity: 1;
+    }
+    & a.link-success {
+        color: var(--text-muted) !important;
+    }
+    & a.link-success:hover {
+        color: var(--accent-primary) !important;
+    }
+}
+
+
+.footer-wrapper {
+    background-color: var(--bg-light);
+    border-color: var(--border-light);
+    transition:
+        background-color 0.4s ease,
+        border-color 0.4s ease;
+}
+
+.footer-title {
+    color: var(--text-main);
+    transition: color 0.4s ease;
+}
+
+.footer-social-link {
+    background-color: var(--bg-subtle);
+    border-color: var(--border-light);
+    color: var(--text-muted);
+    transition: all 0.25s ease;
+
+    &:hover {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--accent-primary);
+        border-color: rgba(16, 185, 129, 0.25);
+        transform: translateY(-2px);
+    }
+}
+
+.footer-newsletter-input {
+    background-color: var(--bg-subtle);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+
+    &::placeholder {
+        color: var(--text-muted);
+    }
+
+    &:focus {
+        background-color: var(--bg-light);
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+        outline: none;
+    }
+}
+
+
+[data-theme='dark'] {
+    & .popular-product-card {
+        box-shadow: var(--card-shadow);
+    }
+    & .popular-product-card:hover {
+        box-shadow: var(--card-shadow-hover);
+    }
+    & .popular-tabs-wrapper {
+        border-bottom-color: var(--border-light);
+    }
+}
+
+
+@keyframes global-pulse-dot {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(0.85);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.25);
+        box-shadow: 0 0 10px var(--accent-primary);
+    }
+}
+
+.pulse-dot-anim {
+    animation: global-pulse-dot 2s ease-in-out infinite;
+}
+
+
+.form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.65 !important;
 }
