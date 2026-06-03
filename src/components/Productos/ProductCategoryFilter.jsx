@@ -2,12 +2,12 @@ import {Button} from 'react-bootstrap';
 import useProducts from '../../hooks/useProducts.js';
 
 
-const ProductosFilter = ({onSeleccionarCategoria}) => {
-    const  productos  = useProducts();
+const ProductCategoryFilter = ({onSelectCategory}) => {
+    const  products  = useProducts();
 
-    const categorias = [... new Set(productos.map(p=>p.category))].sort();
+    const categories = [... new Set(products.map(p=>p.category))].sort();
     
-    if (!productos || productos.length === 0) {
+    if (!products || products.length === 0) {
         return <aside className="p-3 border rounded"><h5>Cargando...</h5></aside>;
     }
     return (
@@ -15,16 +15,16 @@ const ProductosFilter = ({onSeleccionarCategoria}) => {
             <h5>Categorías</h5>
             <div className="d-flex flex-column gap-2 mb-4">
                 <span 
-                    onClick={() => onSeleccionarCategoria(null)} 
+                    onClick={() => onSelectCategory(null)} 
                     className="link-primary text-dark" 
                     style={{ cursor: 'pointer', fontSize: '0.9rem' }}
                 >  
                 Todos los productos
                 </span>
-                {categorias.map((cat) => (
+                {categories.map((cat) => (
                 <span 
                     key={cat}
-                    onClick={() => onSeleccionarCategoria(cat)}
+                    onClick={() => onSelectCategory(cat)}
                     className="link-primary text-dark" 
                     style={{ cursor: 'pointer', fontSize: '0.9rem' }}
                 >
@@ -36,4 +36,4 @@ const ProductosFilter = ({onSeleccionarCategoria}) => {
     );
 };
 
-export default ProductosFilter;
+export default ProductCategoryFilter;

@@ -3,63 +3,62 @@ import { useState } from 'react';
 
 import ServicesBar from '../components/ServicesBar.jsx';
 import useProducts from '../hooks/useProducts.js';
-import ProductoCard from '../components/Productos/ProductoCard';
-import ProductosFilter from '../components/Productos/ProductosFilterCategoria.jsx';
-import ProductosOrdenador from '../components/Productos/ProductosOrden.jsx';
+import ProductCard from '../components/Productos/ProductCard.jsx';
+import ProductCategoryFilter from '../components/Productos/ProductCategoryFilter.jsx';
+import ProductOrder from '../components/Productos/ProductOrder.jsx';
 
 
 const Products = () => {
-    const productos = useProducts();
+    const products = useProducts() || [];
 
-    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("az");
-    const [limite, setLimite] = useState(6);
-    const [Orden, setOrden] = useState(null);
+    const [SelectedCategory, setSelectedCategory] = useState(null);
+    const [Limit, setLimit] = useState(6);
+    const [Order, setOrder] = useState("az");
 
-    const productosFiltrados = categoriaSeleccionada 
-        ? productos.filter(p => p.category === categoriaSeleccionada)
-        : productos;
+    const filteredProducts = SelectedCategory 
+        ? products.filter(p => p.category === SelectedCategory)
+        : [...products];
 
-    if (Orden === "precio-asc") {
-        productos.sort((a, b) => a.price - b.price);
-    } else if (Orden === "precio-desc") {
-        productos.sort((a, b) => b.price - a.price);
-    } else if (Orden === "az") {
-        productos.sort((a, b) => a.title.localeCompare(b.title));
-    }
+    const orderedProducts = [...filteredProducts].sort((a, b) => {
+        if (Order === "az") return a.title.localeCompare(b.title);
+        if (Order === "precio-asc") return a.price - b.price;
+        if (Order === "precio-desc") return b.price - a.price;
+        return 0;
+    });
     
-    const cambioOrden = (orden) => {
-        setOrden(orden);
-        setLimite(6);
+    const changeOrder = (newOrder) => {
+        setOrder(newOrder);
+        setLimit(6);
     };
 
-    const productosVisibles = productosFiltrados.slice(0, limite);
+    const visibleProducts = orderedProducts.slice(0, Limit);
 
-    const cargarMasProductos = () => {
-        setLimite(prevLimite => prevLimite + 6);
+    const getMoreProducts = () => {
+        setLimit(prevLimit => prevLimit + 6);
     };
 
-    const cambioCategoria = (cat) => {
-        setCategoriaSeleccionada(cat);
-        setLimite(6);
+    const changeCategory = (cat) => {
+        setSelectedCategory(cat);
+        setLimit(6);
     };
     
     return (
         <Container className="my-5">
             <h1 className="text-center fw-bold mb-4">Catálogo de Productos</h1>
-            <Row className="mt-4">
+            <Row className="mt-4 g-4">
                 <Col md={3}>
-                    <ProductosOrdenador onSeleccionarOrden={cambioOrden}/>
-                    <ProductosFilter onSeleccionarCategoria={cambioCategoria}/>
+                    <ProductOrder onSelectOrder={changeOrder}/>
+                    <ProductCategoryFilter onSelectCategory={changeCategory}/>
                 </Col>
                 <Col md={9}>
-                    <Row>
-                       {productosVisibles.map((item) => (
-                            <Col key={item.id} md={4}><ProductoCard producto={item} /></Col>
+                    <Row className="g-4">
+                       {visibleProducts.map((item) => (
+                            <Col key={item.id} md={4} className="d-flex align-items-stretch"><ProductCard product={item} /></Col>
                         ))}
                     </Row>
-            {limite < productosFiltrados.length && (
+            {Limit < orderedProducts.length && (
                 <div className="text-center mt-5">
-                    <Button variant="outline-primary" onClick={cargarMasProductos}>
+                    <Button variant="outline-primary" onClick={getMoreProducts}>
                         Ver más
                     </Button>
                 </div>
