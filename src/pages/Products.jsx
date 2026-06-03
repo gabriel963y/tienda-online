@@ -1,11 +1,13 @@
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import ServicesBar from '../components/ServicesBar.jsx';
-import { productos } from '../components/Productos/productosPrueba';
+import useProducts from '../hooks/useProducts.js';
 import ProductoCard from '../components/Productos/ProductoCard';
 import ProductosFilter from '../components/Productos/ProductosFilter.jsx';
 import ProductosNavBar from '../components/Productos/ProductosNavBar.jsx';
 
 const Products = () => {
+    const productos = useProducts();
+    
     
     return (
         <Container className="my-5">
@@ -16,11 +18,18 @@ const Products = () => {
                 </Col>
                 <Col md={9}>
                     <Row>
-                    {productos.map((item) => (
-                        <Col key={item.id} xs={12} sm={6} md={4} lg={4} className="mb-4">
-                            <ProductoCard producto={item} />
-                        </Col>
-                    ))}
+                        
+                        {productos && productos.length > 0 ? (
+                            productos.map((item) => (
+                                <Col key={item.id} xs={12} sm={6} md={4} lg={4} className="mb-4">
+                                    <ProductoCard producto={item} />
+                                </Col>
+                            ))
+                        ) : (
+                            <Col className="text-center">
+                                <p>Cargando catálogo...</p>
+                            </Col>
+                        )}
                     </Row>
                     <div className='d-flex justify-content-center mt-4'>
                         <ProductosNavBar />
