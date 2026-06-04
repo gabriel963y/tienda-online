@@ -7,22 +7,25 @@ import Blog from './pages/Blog.jsx';
 import SingleProduct from './pages/SingleProduct.jsx';
 import Login from './pages/Login.jsx';
 import './App.css';
+import { CartProvider } from './components/CartContext/CartContext'
 
 function App() {
     return (
-        <Router>
-            <Header />
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/productos" element={<Products />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/productos/:id" element={<SingleProduct />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
-            </main>
-            <Footer />
-        </Router>
+        <CartProvider>
+            <Router>
+                <Header />
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/productos" element={<Products />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/productos/:id" element={<SingleProduct />} />
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                </main>
+                <Footer />
+            </Router>
+        </CartProvider>
     );
 }
 
