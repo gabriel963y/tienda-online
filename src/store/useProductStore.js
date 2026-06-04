@@ -24,6 +24,7 @@ const useProductStore = create((set, get) => ({
                 link: `https://dummyjson.com/products/${item.id}`,
                 condition: 'new',
                 category: item.category,
+                description: item.description
             }));
 
             set({ products: formattedProducts, loading: false, hasFetched: true });

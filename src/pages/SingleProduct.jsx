@@ -105,6 +105,7 @@ function SingleProduct() {
                     <h3 className="text-success">Precio ${product.price}</h3>
                     <p className="text-muted">Estado: {product.condition}</p>
                     <p className="text-muted">Categoría: {product.category}</p>
+                    <p className="text-muted">Descripcion: {product.description}</p>
 
                     <div className="d-flex align-items-center gap-2 mt-3">
                         <span>Stock disponible:</span>
