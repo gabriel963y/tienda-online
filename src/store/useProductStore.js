@@ -32,7 +32,8 @@ const useProductStore = create((set, get) => ({
                 isNew: item.id > 174,
                 isFeatured: Math.random() > 0.85,
                 isDiscounted: Math.random() > 0 && item.price > 50,
-                discount: pick([0.9,0.85,0.75,0.5])
+                discount: pick([0.9,0.85,0.75,0.5]),
+                comments: item.reviews || [] 
             }));
 
             set({ products: formattedProducts, loading: false, hasFetched: true });

@@ -8,6 +8,7 @@ import SingleProduct from './pages/SingleProduct.jsx';
 import Login from './pages/Login.jsx';
 import './App.css';
 import { CartProvider } from './components/CartContext/CartContext'
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     </Routes>
                 </main>
                 <Footer />
+                <ToastContainer />
             </Router>
         </CartProvider>
     );

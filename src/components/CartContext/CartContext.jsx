@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { children } from 'react'
 import { useState } from 'react'
 import { createContext } from 'react'
+import { toast, Slide } from 'react-toastify'
 
 const CartContext = createContext()
 
@@ -10,12 +11,24 @@ export const CartProvider = ({ children }) => {
 
     const [carrito, setCarrito] = useState([])
 
-    const agregarAlCarrito = (producto, cantidad=1) => {
+    const agregarAlCarrito = (producto, cantidad = 1) => {
+        const notificacionCarrito = () => toast.success(`${cantidad} ${cantidad >= 2 ? "productos agregados":"producto agregado"} al carrito!`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Slide,
+        })
+
         setCarrito((carritoAnterior) => {
             const productoNormalizado = {
                 id: producto.id,
                 nombre: producto.nombre || producto.title,
-                precio: producto.precio || producto.price, 
+                precio: producto.precio || producto.price,
                 imagen: producto.imagen || producto.image,
             }
 
@@ -32,12 +45,14 @@ export const CartProvider = ({ children }) => {
             }
             return [...carritoAnterior, { ...productoNormalizado, cantidad: cantidad }]
         })
+
+        notificacionCarrito()
     }
 
     const actualizarCantidad = (productoId, cantidad) => {
         setCarrito((carritoAnterior) =>
             carritoAnterior.map(producto => productoId === producto.id
-                ? { ...producto, cantidad: Math.max(1, Math.min(10, producto.cantidad + cantidad)) }
+                ? { ...producto, cantidad: Math.max(1, producto.cantidad + cantidad) }
                 : producto
             )
         )
