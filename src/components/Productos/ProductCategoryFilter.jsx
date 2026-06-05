@@ -1,5 +1,6 @@
 import {Button} from 'react-bootstrap';
 import useProducts from '../../hooks/useProducts.js';
+import { LiaAccusoft } from 'react-icons/lia';
 
 
 const ProductCategoryFilter = ({onSelectCategory}) => {
@@ -7,31 +8,28 @@ const ProductCategoryFilter = ({onSelectCategory}) => {
 
     const categories = [... new Set(products.map(p=>p.category))].sort();
     
-    if (!products || products.length === 0) {
-        return <aside className="p-3 border rounded"><h5>Cargando...</h5></aside>;
-    }
     return (
-        <aside className="p-3 border rounded">
-            <h5>Categorías</h5>
-            <div className="d-flex flex-column gap-2 mb-4">
-                <span 
+        <aside className="mb-4">
+            <h5 className="mb-4">Categorías</h5>
+            <ul className="d-flex flex-column gap-2 mb-4 list-unstyled">
+                <li 
                     onClick={() => onSelectCategory(null)} 
                     className="link-primary text-dark" 
                     style={{ cursor: 'pointer', fontSize: '0.9rem' }}
-                >  
+                >
                 Todos los productos
-                </span>
+                </li>
                 {categories.map((cat) => (
-                <span 
+                <li 
                     key={cat}
                     onClick={() => onSelectCategory(cat)}
                     className="link-primary text-dark" 
                     style={{ cursor: 'pointer', fontSize: '0.9rem' }}
                 >
                 {cat} 
-                </span>
+                </li>
             ))}
-        </div>
+        </ul>
         </aside>     
     );
 };
