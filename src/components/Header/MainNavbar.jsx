@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
-import { FiShoppingCart, FiUser, FiSun, FiMoon } from 'react-icons/fi';
+import { FiShoppingCart, FiUser, FiSun, FiMoon, FiHeart } from 'react-icons/fi';
 
 import SearchBar from './SearchBar';
 import CartOffcanvas from './CartOffcanvas';
+import WishlistOffcanvas from './WishlistOffcanvas';
+import { useWishlist } from '../WishlistContext/WishlistContext';
 
 const MainNavbar = () => {
     const [expanded, setExpanded] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const [showCart, setShowCart] = useState(false);
+    const [showWishlist, setShowWishlist] = useState(false);
     const [hasProducts, setHasProducts] = useState(false);
+    const { wishlist } = useWishlist();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,6 +33,7 @@ const MainNavbar = () => {
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-bs-theme', theme);
     }, [theme]);
 
     useEffect(() => {
@@ -112,6 +117,15 @@ const MainNavbar = () => {
                             Blog
                         </Nav.Link>
 
+                        <Nav.Link
+                            as={NavLink}
+                            to="/contacto"
+                            className="nav-link-tech"
+                            onClick={() => setExpanded(false)}
+                        >
+                            Contacto
+                        </Nav.Link>
+
                         <NavDropdown
                             title="Categorías"
                             id="products-dropdown"
@@ -185,6 +199,28 @@ const MainNavbar = () => {
                             className="navbar-icon-link position-relative"
                             onClick={(e) => {
                                 e.preventDefault();
+                                setShowWishlist(true);
+                                setExpanded(false);
+                            }}
+                            aria-label="Ver favoritos"
+                        >
+                            <FiHeart size={18} />
+                            {wishlist && wishlist.length > 0 && (
+                                <span
+                                    className="cart-badge-dot"
+                                    style={{
+                                        background: '#f43f5e',
+                                        boxShadow: '0 0 8px rgba(244,63,94,0.6)',
+                                    }}
+                                ></span>
+                            )}
+                        </a>
+
+                        <a
+                            href="#"
+                            className="navbar-icon-link position-relative"
+                            onClick={(e) => {
+                                e.preventDefault();
                                 setShowCart(true);
                                 setExpanded(false);
                             }}
@@ -200,6 +236,7 @@ const MainNavbar = () => {
             </Container>
 
             <CartOffcanvas show={showCart} onHide={() => setShowCart(false)} />
+            <WishlistOffcanvas show={showWishlist} onHide={() => setShowWishlist(false)} />
         </Navbar>
     );
 };

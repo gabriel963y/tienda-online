@@ -1,161 +1,163 @@
-import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
-import useProductStore from "../store/useProductStore"
-import { Container, Row, Col, Image, Button, Form, } from 'react-bootstrap'
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { FiCheckCircle, FiArrowLeft } from 'react-icons/fi';
 
-import Avatar from '../components/CustomerReviews/Avatar'
-import StarRow from '../components/CustomerReviews/StarRow'
-import { AVATAR_COLORS, likesToStars } from '../utils/reviewUtils'
+import useProductStore from '../store/useProductStore';
+import { useCart } from '../components/CartContext/CartContext';
+import { useWishlist } from '../components/WishlistContext/WishlistContext';
+import CartOffcanvas from '../components/Header/CartOffcanvas';
 
-import { useCart } from '../components/CartContext/CartContext'
-import CartOffcanvas from '../components/Header/CartOffcanvas'
-
+import ProductImageGallery from '../components/SingleProduct/ProductImageGallery';
+import ProductInfo from '../components/SingleProduct/ProductInfo';
+import ProductActions from '../components/SingleProduct/ProductActions';
+import ProductReviews from '../components/SingleProduct/ProductReviews';
 
 function SingleProduct() {
-    const { id } = useParams()
+    const { id } = useParams();
+    const [showCart, setShowCart] = useState(false);
+    const { agregarAlCarrito } = useCart();
+    const { checkIsFavorite, toggleFavorite } = useWishlist();
 
-    const [cantidad, setCantidad] = useState(1)
-    const [showCart, setShowCart] = useState(false)
+    const { products, loading, error, fetchProducts, hasFetched } = useProductStore();
 
-
-    const { agregarAlCarrito } = useCart()
-
-    const comprarAhora = () => {
-        
-            alert(`Resumen: 
-             
-            Productos: ${cantidad} 
-            Total: $${ product.price * cantidad }
-
-            Gracias por tu compra!`)
-
-        }
-
-
-
-    const { // para los productos
-        products,
-        loading,
-        error,
-        fetchProducts,
-        hasFetched
-    } = useProductStore()
-
-    const product = products.find(
-        item => item.id === Number(id)
-    )
-
-
+    const product = products.find((item) => item.id === Number(id));
+    const isFavorite = product ? checkIsFavorite(product.id) : false;
 
     useEffect(() => {
         if (!hasFetched) {
-            fetchProducts()
+            fetchProducts();
         }
-    }, [hasFetched, fetchProducts])
+    }, [hasFetched, fetchProducts]);
 
+    const handleAddToCart = (cantidad) => {
+        agregarAlCarrito(product, cantidad);
+        toast.success(
+            <div className="d-flex align-items-center">
+                <div className="ms-2">
+                    <strong style={{ display: 'block', fontSize: '0.95rem', marginBottom: '2px' }}>
+                        ¡Producto agregado!
+                    </strong>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.8 }}>
+                        {product.title} x{cantidad}
+                    </span>
+                </div>
+            </div>,
+            {
+                icon: <FiCheckCircle size={24} style={{ color: 'var(--accent-primary)' }} />,
+                progressStyle: { background: 'var(--accent-primary)' },
+                style: {
+                    background: 'var(--bg-light)',
+                    border: '1px solid var(--border-light)',
+                    color: 'var(--text-main)',
+                    fontFamily: 'var(--font-sans)',
+                    borderRadius: '16px',
+                    boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+                },
+            }
+        );
+    };
 
-
+    const handleBuyNow = (cantidad) => {
+        handleAddToCart(cantidad);
+        setShowCart(true); // Open the cart so they can proceed to checkout
+    };
 
     if (loading) {
-        return <p>Cargando...</p>
+        return (
+            <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ minHeight: '60vh' }}
+            >
+                <div className="spinner-border text-success" role="status">
+                    <span className="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
-        return <p>{error}</p>
+        return (
+            <Container className="my-5 text-center">
+                <h3 className="text-danger">{error}</h3>
+            </Container>
+        );
     }
 
     if (!product) {
-        return <p>Producto no encontrado</p>
+        return (
+            <Container className="my-5 text-center">
+                <h3>Producto no encontrado</h3>
+            </Container>
+        );
     }
 
-
     return (
-        <>
-            <Container className="my-4">
-                <Link to="/productos" className="btn btn-outline-secondary rounded-pill px-4 mb-4">⬅ Volver a productos</Link>
-                <Row>
-                    <Col md={4}>
-                        <Image src={product.image} fluid />
+        <div style={{ background: 'var(--bg-subtle)', minHeight: '100vh', paddingBottom: '6rem' }}>
+            <div
+                style={{
+                    background: 'var(--bg-light)',
+                    padding: '2rem 0',
+                    borderBottom: '1px solid var(--border-light)',
+                    marginBottom: '3rem',
+                }}
+            >
+                <Container>
+                    <Link
+                        to="/productos"
+                        className="d-inline-flex align-items-center gap-2 text-decoration-none"
+                        style={{
+                            color: 'var(--text-muted)',
+                            fontFamily: 'var(--font-tech)',
+                            fontSize: '0.85rem',
+                            fontWeight: 700,
+                            letterSpacing: '0.05em',
+                            textTransform: 'uppercase',
+                            transition: 'color 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-main)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+                    >
+                        <FiArrowLeft /> Volver a productos
+                    </Link>
+                </Container>
+            </div>
+
+            <Container>
+                <Row className="g-5 mb-5 align-items-center">
+                    <Col lg={6}>
+                        <ProductImageGallery
+                            image={product.image}
+                            title={product.title}
+                            isFavorite={isFavorite}
+                            onToggleFavorite={() => toggleFavorite(product)}
+                        />
                     </Col>
 
-                    <Col md={6}>
-                        <h1 className="fw-bold mb-3">{product.title}</h1>
-                        <h3 className="text-success">Precio ${product.price}</h3>
-                        <p className="text-muted">Estado: {product.condition}</p>
-                        <p className="text-muted">Categoría: {product.category}</p>
-                        <p className="text-muted">Descripcion: {product.description}</p>
-
-                        <div className="d-flex align-items-center gap-2 mt-3">
-                            <span>Stock disponible:</span>
-
-                            <Button onClick={() => {
-                                setCantidad(cantidad > 1 ? cantidad - 1 : 1)
-                            }}>-</Button>
-                            <span className="mx-3">{cantidad}</span>
-                            <Button className="me-2" onClick={() => {
-                                setCantidad(cantidad + 1)
-                            }}>+</Button>
-
-                        </div>
-
-                        <div className="d-flex flex-wrap gap-2 mt-3">
-
-                            <Button onClick={() => { comprarAhora() }}>Comprar ahora</Button>
-                            <Button onClick={() => { agregarAlCarrito(product, cantidad) }}>Agregar al carrito</Button>
-
-                        </div>
-                    </Col>
-                </Row>
-
-                <Row className="mt-5"> {/*revisar*/}
-                    <Col>
-                        <h4>Reseñas ({product.comments?.length || 0})</h4>
-                        <div className="d-flex flex-column gap-2 mt-3">
-                            {product.comments.length > 0 ? (
-                                product.comments.map((review, posActual) => {
-                                    const color = AVATAR_COLORS[posActual % AVATAR_COLORS.length]
-                                    const stars = review.rating || 3;
-
-                                    return (
-                                        <div key={review.id || posActual} className="cr-row-item">
-                                            <Avatar
-                                                name={review.reviewerName || "Usuario anónimo"}
-                                                color={color}
-                                                size={36}
-                                            />
-                                            <div className="cr-row-body-wrap">
-                                                <div className="cr-row-header">
-                                                    <div className="cr-row-author-meta">
-                                                        <span className="cr-row-name">
-                                                            {review.reviewerName || "Usuario anónimo"}
-                                                        </span>
-                                                        <StarRow count={stars} size={15} />
-                                                    </div>
-                                                </div>
-                                                <p className="cr-row-body">
-                                                    "{review.comment || review.body}"
-                                                </p>
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            ) : (
-                                <p className="text-muted">
-                                    No hay reseñas para este producto
-                                </p>
-                            )}
+                    <Col lg={6}>
+                        <div className="ps-lg-4">
+                            <ProductInfo product={product} />
+                            <ProductActions onAddToCart={handleAddToCart} onBuyNow={handleBuyNow} />
                         </div>
                     </Col>
                 </Row>
+
+                <hr
+                    style={{
+                        border: 'none',
+                        height: '1px',
+                        background: 'var(--border-light)',
+                        margin: '4rem 0',
+                    }}
+                />
+
+                <ProductReviews comments={product.comments} />
             </Container>
 
-            <CartOffcanvas show={showCart} onHide={() => setShowCart(false)} /> {/*cambia el estado y renderiza/oculta*/}
-
-        </>
-
-    )
+            <CartOffcanvas show={showCart} onHide={() => setShowCart(false)} />
+        </div>
+    );
 }
 
-
-
-export default SingleProduct
+export default SingleProduct;

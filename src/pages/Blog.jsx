@@ -1,43 +1,52 @@
-import { Container } from 'react-bootstrap';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Container, Row, Col } from 'react-bootstrap';
 import BlogSideBar from '../components/Blog/sidebar/BlogSideBar';
 import BlogPosts from '../components/Blog/blogPosts/BlogPosts';
+import BlogHero from '../components/Blog/BlogHero';
+
 const Blog = () => {
     return (
-        <>
-            <Container fluid className="text-center bg-success">
-                <h1 className="py-5">
-                    NextGen <span className="fw-bold">Blog</span>
-                </h1>
-            </Container>
-            <Container className="my-5 text-center">
+        <div
+            style={{
+                background: 'var(--bg-main)',
+                minHeight: '100vh',
+                transition: 'background-color 0.3s ease',
+            }}
+        >
+            <BlogHero />
 
-                <h4 className="fw-bold">
-                    Tecnología para la Próxima Generación
-                </h4>
-
-                <p className="text-muted mt-4">
-                    Descubrí novedades, reseñas y consejos sobre computadoras,
-                    notebooks, periféricos, componentes y las últimas tendencias
-                    tecnológicas para potenciar tu experiencia digital.
-                </p>
-
-            </Container>
-            <Container className='mt-5 px-5 text-center'>
-                <Row>
-                    <Col lg={8} className='me-5'>
-                        <h4 className="text-start fw-bold text-secondary mb-4">
-                            Posts
-                        </h4>
-                        <BlogPosts></BlogPosts>
+            <Container className="mb-5 pb-5">
+                <Row className="g-5">
+                    <Col lg={8}>
+                        <div className="d-flex align-items-center mb-4 gap-3">
+                            <h4
+                                className="m-0"
+                                style={{
+                                    fontFamily: 'var(--font-sans)',
+                                    fontWeight: 800,
+                                    fontSize: '1.5rem',
+                                    color: 'var(--text-main)',
+                                    letterSpacing: '-0.02em',
+                                }}
+                            >
+                                Últimos Posts
+                            </h4>
+                            <div
+                                style={{
+                                    flex: 1,
+                                    height: '1px',
+                                    background: 'var(--border-light)',
+                                }}
+                            ></div>
+                        </div>
+                        <BlogPosts />
                     </Col>
-                    <Col lg={3}>
-                        <BlogSideBar></BlogSideBar>
+
+                    <Col lg={4}>
+                        <BlogSideBar />
                     </Col>
                 </Row>
             </Container>
-        </>
+        </div>
     );
 };
 
