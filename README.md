@@ -1,5 +1,7 @@
 # NextGen Store 🛍️
 
+[![Deploy en Railway](https://img.shields.io/badge/Deploy-Railway-%230B0D0E?style=for-the-badge&logo=railway)](https://tienda-online-production-27f8.up.railway.app/)
+
 Tienda online moderna construida con React + Vite. Un e-commerce completo con catálogo de productos, carrito de compras, lista de deseos, blog, y más.
 
 ## ✨ Funcionalidades
