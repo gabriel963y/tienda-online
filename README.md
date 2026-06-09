@@ -34,11 +34,11 @@ Tienda online moderna construida con React + Vite. Un e-commerce completo con ca
 ## 🚀 Scripts
 
 ```bash
-pnpm dev         # Entorno de desarrollo
-pnpm build       # Build de producción
-pnpm preview     # Vista previa del build
-pnpm lint        # ESLint
-pnpm format      # Prettier
+pnpm run dev      # Entorno de desarrollo
+pnpm run build    # Build de producción
+pnpm run preview  # Vista previa del build
+pnpm run lint     # ESLint
+pnpm run format   # Prettier
 ```
 
 ## 📁 Estructura
