@@ -1,16 +1,65 @@
-# React + Vite
+# NextGen Store 🛍️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tienda online moderna construida con React + Vite. Un e-commerce completo con catálogo de productos, carrito de compras, lista de deseos, blog, y más.
 
-Currently, two official plugins are available:
+## ✨ Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Catálogo de productos** — Navegación con filtros por categoría, precio y ordenamiento.
+- **Vista detallada** — Galería de imágenes, reseñas de clientes y selector de cantidad.
+- **Carrito de compras** — Offcanvas con resumen, modificación de cantidades y checkout.
+- **Lista de deseos** — Offcanvas para guardar productos favoritos.
+- **Blog** — Sección con posts, barra de búsqueda, posts recientes y CTA.
+- **Autenticación** — Página de inicio de sesión con formulario estilizado y opción "Recordarme".
+- **Página de contacto** — Formulario de contacto e información.
+- **Diseño responsive** — Bootstrap 5 + Bootswatch con componentes react-bootstrap.
+- **Transiciones suaves** — Carrusel hero con Embla Carousel y autoplay.
+- **Notificaciones** — Toastify para feedback visual al agregar productos.
 
-## React Compiler
+## 🧰 Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Tecnología          | Uso                          |
+|---------------------|------------------------------|
+| React 19            | UI                           |
+| Vite 8              | Build tool                   |
+| React Router 7      | Enrutamiento                 |
+| Bootstrap 5.3       | Estilos y layout             |
+| Bootswatch          | Tema Bootstrap               |
+| react-bootstrap     | Componentes Bootstrap        |
+| Embla Carousel      | Carrusel hero con autoplay   |
+| Zustand             | Estado global (productos)    |
+| React Context       | Estado (carrito, wishlist)   |
+| react-icons         | Iconos                       |
+| react-toastify      | Notificaciones               |
 
-## Expanding the ESLint configuration
+## 🚀 Scripts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+pnpm dev         # Entorno de desarrollo
+pnpm build       # Build de producción
+pnpm preview     # Vista previa del build
+pnpm lint        # ESLint
+pnpm format      # Prettier
+```
+
+## 📁 Estructura
+
+```
+src/
+├── components/     # Componentes reutilizables
+│   ├── Blog/
+│   ├── CartContext/
+│   ├── Contact/
+│   ├── CustomerReviews/
+│   ├── Header/ (navbar, topbar, carrito offcanvas, wishlist offcanvas)
+│   ├── HeroCarousel/
+│   ├── Login/
+│   ├── PopularMenu/
+│   ├── Productos/
+│   ├── PromoBanner/
+│   └── SingleProduct/
+├── hooks/          # Custom hooks
+├── pages/          # Páginas (Home, Products, SingleProduct, Blog, Contact, Login)
+├── services/       # Lógica de negocio (filtros, ordenamiento)
+├── store/          # Stores de Zustand
+└── utils/          # Utilidades
+```
